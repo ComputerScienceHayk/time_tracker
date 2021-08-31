@@ -1,0 +1,49 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:time_tracker/app/home/models/job.dart';
+
+void main() {
+
+  group("fromMap", () {
+    /// No need after null safety
+    // test("null data", () {
+    //   final job = Job.fromMap(null, 'abc');
+    //   expect(job, null);
+    // });
+
+    test('job with all properties', () {
+
+      final job = Job.fromMap({
+        "name": "Blogging",
+        "ratePerHour": 10,
+      }, "abc");
+      expect(job, Job(name: 'Blogging', id: 'abc', ratePerHour: 10, ));
+
+      // expect(job.name, "Blogging");
+      // expect(job.ratePerHour, 10);
+      // expect(job.id, "abc");
+
+    });
+
+    test('missing name', () {
+
+      final job = Job.fromMap({
+        "id": "abc",
+        "name":"",
+        "ratePerHour": 10,
+      }, "abc");
+      expect(job, "id: abc, name: , ratePerHour: 10");
+    });
+
+  });
+
+  group("toMap", () {
+    test ("valid name, ratePerHour", () {
+      final job = Job(name: "Blogging", ratePerHour: 10, id: "abc");
+      expect(job.toMap(), {
+        "name": "Blogging",
+        "ratePerHour": 10,
+      });
+    });
+  });
+
+}
